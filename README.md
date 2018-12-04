@@ -1,2 +1,2 @@
 # euro-draw-simulator
-Euro 2020 draw simulator - TDD practice
+Qualifiers for Euro 2020 draw simulator - TDD practice
