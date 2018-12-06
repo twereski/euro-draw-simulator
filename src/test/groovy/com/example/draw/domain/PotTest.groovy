@@ -5,10 +5,13 @@ import spock.lang.Specification
 class PotTest extends Specification {
     def "Draw"() {
         given:
-        def pot = new Pot()
+        def team1 = new Team('xd')
+        def team2 = new Team('xx')
+        def teams = [team1, team2]
+        def pot = new Pot(0, teams)
         when:
-        pot.draw()
+        def team = pot.draw()
         then:
-        1==1
+        teams.contains(team)
     }
 }
