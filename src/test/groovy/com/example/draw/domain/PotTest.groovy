@@ -3,7 +3,7 @@ package com.example.draw.domain
 import spock.lang.Specification
 
 class PotTest extends Specification {
-    def "Draw"() {
+    def "Should draw team from pot"() {
         given:
         def team1 = new Team('xd')
         def team2 = new Team('xx')
@@ -12,6 +12,14 @@ class PotTest extends Specification {
         when:
         def team = pot.draw()
         then:
-        teams.contains(team)
+        !pot.teams().contains(team)
+    }
+    def "Empty pot should throw exception"() {
+        given:
+        def pot = new Pot(0, [])
+        when:
+        pot.draw()
+        then:
+        thrown(DomainException)
     }
 }
