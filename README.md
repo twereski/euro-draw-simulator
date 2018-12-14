@@ -1,5 +1,5 @@
 # euro-draw-simulator
-Qualifiers for Euro 2020 draw simulator - TDD practice
+Qualifiers for Euro 2020 draw simulator - TDD and BDD practice
 
 # Goal
 Implement draw algorithm using TDD technique. Complete application should allow simulate draw procedure.

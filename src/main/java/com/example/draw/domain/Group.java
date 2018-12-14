@@ -1,8 +1,14 @@
 package com.example.draw.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
 
-    private List<Team> teams;
+    private String name;
+    private List<Team> teams = new ArrayList<Team>();
+
+    public Group(String name) {
+        this.name = name;
+    }
 }
