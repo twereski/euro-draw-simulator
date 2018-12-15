@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Random;
 
-public class Pot {
+class Pot {
 
     private int id;
     private List<Team> teams;

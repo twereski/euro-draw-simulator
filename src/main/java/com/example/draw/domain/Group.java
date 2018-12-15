@@ -3,7 +3,7 @@ package com.example.draw.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Group {
+class Group {
 
     private String name;
     private List<Team> teams = new ArrayList<Team>();

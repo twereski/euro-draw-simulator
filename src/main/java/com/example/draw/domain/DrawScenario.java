@@ -3,7 +3,7 @@ package com.example.draw.domain;
 import java.util.List;
 import java.util.Queue;
 
-public class DrawScenario {
+class DrawScenario {
 
     private List<Group> groups;
     private Queue<Pot> pots;
