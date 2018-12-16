@@ -1,12 +1,14 @@
 package com.example.draw.domain;
 
 import com.google.common.collect.ImmutableList;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Random;
 
-class Pot {
+public class Pot {
 
+    @Getter
     private int id;
     private List<Team> teams;
     private Random random;

@@ -1,8 +1,14 @@
-package com.example.draw.domain
+package com.example.draw
 
+import com.example.draw.domain.PotFacade
+import com.example.draw.infrastracture.InMemoryPotRepository
+import com.example.draw.infrastracture.PotConfiguration
 import spock.lang.Specification
 
-class SimulationTest extends Specification {
+class SimulationFacadeTest extends Specification {
+    InMemoryPotRepository potRepository = new InMemoryPotRepository()
+    PotFacade potFacade = new PotConfiguration().potFacade()
+
     def "Simulation of draws of euro elimination groups"() {
         given:"pots with teams according uefa ranking"
         and: "empty groups where team will be put after draw"
