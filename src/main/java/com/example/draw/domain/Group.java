@@ -1,10 +1,13 @@
 package com.example.draw.domain;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class Group {
+public class Group {
 
+    @Getter
     private String name;
     private List<Team> teams = new ArrayList<Team>();
 

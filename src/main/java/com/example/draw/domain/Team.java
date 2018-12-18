@@ -1,6 +1,6 @@
 package com.example.draw.domain;
 
-class Team {
+public class Team {
     private final String name;
 
     public Team(String name) {
