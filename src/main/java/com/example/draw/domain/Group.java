@@ -9,6 +9,7 @@ public class Group {
 
     @Getter
     private String name;
+    @Getter
     private List<Team> teams = new ArrayList<Team>();
 
     public Group(String name) {

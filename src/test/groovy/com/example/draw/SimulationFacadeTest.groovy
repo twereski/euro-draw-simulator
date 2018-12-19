@@ -4,10 +4,12 @@ import com.example.draw.domain.Group
 import com.example.draw.domain.GroupRepository
 import com.example.draw.domain.Pot
 import com.example.draw.domain.PotFacade
+import com.example.draw.domain.restrictions.ProhibitedTeams
 import com.example.draw.domain.Team
 import com.example.draw.infrastracture.InMemoryGroupRepository
 import com.example.draw.infrastracture.InMemoryPotRepository
 import com.example.draw.infrastracture.PotConfiguration
+import javafx.util.Pair
 import spock.lang.Specification
 
 import java.util.stream.Collectors
@@ -25,8 +27,12 @@ class SimulationFacadeTest extends Specification {
         setUpGroups(groupRepository)
         def groups = groupRepository.findAll()
         and: "prohibited team clashes are set"
+        def prohibited = setUpProhibitedTeams()
         and: "winter venue restrictions teams are set"
-        when: "the simulation run"
+        def winter = setUpWinter()
+        and: "excessive travel restrictions are set"
+        def travel = setUpTravel()
+        when: "the simulation is running according to procedure"
 
         then: "every group is full (according group capacity)"
         and: "pots are empty"
@@ -41,7 +47,7 @@ class SimulationFacadeTest extends Specification {
                 .stream().map() {s -> new Team(s)}.collect(Collectors.toList())
         def teams1 = ['Belgium', 'France', 'Spain', 'Italy', 'Croatia', 'Poland']
                 .stream().map() {s -> new Team(s)}.collect(Collectors.toList())
-        def teams2 = ['Germany', 'Iceland', 'Bosnia and Herzegovina', 'Ukraine', 'Denmark', 'Sweden', 'Russia', 'Austria', 'Wales', 'Czech Republic']
+        def teams2 = ['Germany', 'Iceland', 'Bosnia-Herzegovina', 'Ukraine', 'Denmark', 'Sweden', 'Russia', 'Austria', 'Wales', 'Czech Republic']
                 .stream().map() {s -> new Team(s)}.collect(Collectors.toList())
         def teams3 = ['Slovakia', 'Turkey', 'Republic of Ireland', 'Northern Ireland', 'Scotland', 'Norway', 'Serbia', 'Finland', 'Bulgaria', 'Israel']
                 .stream().map() {s -> new Team(s)}.collect(Collectors.toList())
@@ -70,5 +76,21 @@ class SimulationFacadeTest extends Specification {
     def setUpGroups(GroupRepository groupRepository) {
         ['A', 'B', 'C', 'D', 'E', 'G', 'H', 'I', 'J']
                 .stream().map() {s -> new Group(s)}.map() {g -> groupRepository.save(g)}.collect(Collectors.toList())
+    }
+
+    def setUpProhibitedTeams() {
+        def names = ['Armenia': 'Azerbaijan', 'Gibraltar': 'Spain', 'Kosovo': 'Bosnia-Herzegovina',
+                     'Serbia': 'Kosovo', 'Ukraine': 'Russia'];
+        def pairs = []
+        names.each {k, v ->  pairs.add(new Pair<>(new Team(k), new Team(v)))}
+        return new ProhibitedTeams(pairs);
+    }
+
+    def setUpWinter() {
+
+    }
+
+    def setUpTravel() {
+
     }
 }
