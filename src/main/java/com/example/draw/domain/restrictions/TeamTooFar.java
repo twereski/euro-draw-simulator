@@ -1,6 +1,5 @@
 package com.example.draw.domain.restrictions;
 
-import com.example.draw.domain.Group;
 import com.example.draw.domain.Team;
 
 import java.util.List;
@@ -15,11 +14,11 @@ public class TeamTooFar {
         this.toFarTeams = toFarTeams;
     }
 
-    public boolean isFar(Team team) {
+    boolean isFar(Team team) {
         return this.team.equals(team);
     }
 
-    public int commonTeams(List<Team> teams) {
+    int commonTeams(List<Team> teams) {
         teams.retainAll(toFarTeams);
         return  teams.size();
     }

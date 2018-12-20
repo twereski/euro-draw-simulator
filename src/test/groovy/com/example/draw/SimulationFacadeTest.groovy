@@ -32,10 +32,12 @@ class SimulationFacadeTest extends Specification {
         def winter = setUpWinter()
         and: "excessive travel restrictions are set"
         def travel = setUpTravel()
+        def facade = new SimulationFacade(potRepository, groupRepository, prohibited)
         when: "the simulation is running according to procedure"
-
+        facade.run()
         then: "every group is full (according group capacity)"
         and: "pots are empty"
+        pots.each { assert it.teams().isEmpty()}
         and: "competition-related reasons role has been fulfilled"
         and: "prohibited team clashes role has been fulfilled"
         and: "winter venue restrictions role has been fulfilled"
@@ -69,7 +71,7 @@ class SimulationFacadeTest extends Specification {
         def pots = [pot0, pot1, pot2, pot3, pot4, pot5, pot6]
 
         pots.each {
-            p -> potRepository.save(p);
+            p -> potRepository.save(p)
         }
     }
 
@@ -80,10 +82,10 @@ class SimulationFacadeTest extends Specification {
 
     def setUpProhibitedTeams() {
         def names = ['Armenia': 'Azerbaijan', 'Gibraltar': 'Spain', 'Kosovo': 'Bosnia-Herzegovina',
-                     'Serbia': 'Kosovo', 'Ukraine': 'Russia'];
+                     'Serbia': 'Kosovo', 'Ukraine': 'Russia']
         def pairs = []
         names.each {k, v ->  pairs.add(new Pair<>(new Team(k), new Team(v)))}
-        return new ProhibitedTeams(pairs);
+        return new ProhibitedTeams(pairs)
     }
 
     def setUpWinter() {

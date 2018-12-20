@@ -1,9 +1,9 @@
 package com.example.draw.domain;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface PotRepository {
-    Collection<Pot> findAll();
+    List<Pot> findAll();
     Pot save(Pot pot);
     Pot get(int id);
 }
