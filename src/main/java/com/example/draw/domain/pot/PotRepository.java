@@ -1,4 +1,4 @@
-package com.example.draw.domain;
+package com.example.draw.domain.pot;
 
 import java.util.List;
 

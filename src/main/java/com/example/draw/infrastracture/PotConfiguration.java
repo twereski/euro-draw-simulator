@@ -1,7 +1,7 @@
 package com.example.draw.infrastracture;
 
 import com.example.draw.domain.PotFacade;
-import com.example.draw.domain.PotRepository;
+import com.example.draw.domain.pot.PotRepository;
 
 public class PotConfiguration {
 

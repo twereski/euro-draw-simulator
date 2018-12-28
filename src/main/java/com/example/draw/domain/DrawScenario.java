@@ -1,5 +1,8 @@
 package com.example.draw.domain;
 
+import com.example.draw.domain.group.Group;
+import com.example.draw.domain.pot.Pot;
+
 import java.util.List;
 import java.util.Queue;
 

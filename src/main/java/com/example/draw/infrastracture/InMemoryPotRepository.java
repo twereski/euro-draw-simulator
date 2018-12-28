@@ -1,12 +1,9 @@
 package com.example.draw.infrastracture;
 
-import com.example.draw.domain.Pot;
-import com.example.draw.domain.PotRepository;
-import com.google.common.collect.Lists;
+import com.example.draw.domain.pot.Pot;
+import com.example.draw.domain.pot.PotRepository;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 

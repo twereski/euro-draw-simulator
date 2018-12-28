@@ -1,8 +1,8 @@
 package com.example.draw
 
-import com.example.draw.domain.Group
-import com.example.draw.domain.GroupRepository
-import com.example.draw.domain.Pot
+import com.example.draw.domain.group.Group
+import com.example.draw.domain.group.GroupRepository
+import com.example.draw.domain.pot.Pot
 import com.example.draw.domain.PotFacade
 import com.example.draw.domain.restrictions.ProhibitedTeams
 import com.example.draw.domain.Team
@@ -32,7 +32,7 @@ class SimulationFacadeTest extends Specification {
         def winter = setUpWinter()
         and: "excessive travel restrictions are set"
         def travel = setUpTravel()
-        def facade = new SimulationFacade(potRepository, groupRepository, prohibited)
+        def facade = new SimulationFacade(potRepository, groupRepository, [prohibited, winter, travel])
         when: "the simulation is running according to procedure"
         facade.run()
         then: "every group is full (according group capacity)"
@@ -76,8 +76,8 @@ class SimulationFacadeTest extends Specification {
     }
 
     def setUpGroups(GroupRepository groupRepository) {
-        ['A', 'B', 'C', 'D', 'E', 'G', 'H', 'I', 'J']
-                .stream().map() {s -> new Group(s)}.map() {g -> groupRepository.save(g)}.collect(Collectors.toList())
+        ['F', 'A', 'B', 'C', 'D', 'E', 'G', 'H', 'I', 'J']
+                .stream().map() {s -> new Group(new Character(s as char))}.map() {g -> groupRepository.save(g)}.collect(Collectors.toList())
     }
 
     def setUpProhibitedTeams() {

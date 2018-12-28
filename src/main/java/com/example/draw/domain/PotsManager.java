@@ -1,5 +1,7 @@
 package com.example.draw.domain;
 
+import com.example.draw.domain.pot.Pot;
+
 import java.util.List;
 
 public class PotsManager {

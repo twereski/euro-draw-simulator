@@ -1,5 +1,7 @@
-package com.example.draw.domain;
+package com.example.draw.domain.pot;
 
+import com.example.draw.domain.DomainException;
+import com.example.draw.domain.Team;
 import com.google.common.collect.ImmutableList;
 import lombok.Getter;
 
