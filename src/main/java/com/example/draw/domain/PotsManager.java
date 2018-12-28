@@ -26,7 +26,7 @@ public class PotsManager {
             if(!pots.iterator().hasNext()) {
                 throw new DomainException();
             }
-            currentPot = pots.iterator().next();
+            currentPot = pots.get(pots.indexOf(currentPot) + 1);
         }
         return currentPot.draw();
     }

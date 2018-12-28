@@ -18,7 +18,7 @@ public class Group {
 
     public Group(Character name) {
         this.name = name;
-        capacity = 5;
+        capacity = 6;
     }
 
     public void addTeam(Team team) {
