@@ -11,7 +11,7 @@ public class Group {
 
     @Getter
     private final Character name;
-
+    @Getter
     private final int capacity;
     @Getter
     private List<Team> teams = new ArrayList<>();
@@ -28,7 +28,11 @@ public class Group {
         teams.add(team);
     }
 
-    int freePlaces() {
+    public int freePlaces() {
         return capacity - teams.size();
+    }
+
+    int size () {
+        return teams.size();
     }
 }

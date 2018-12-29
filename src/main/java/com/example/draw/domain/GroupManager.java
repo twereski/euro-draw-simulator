@@ -24,6 +24,9 @@ public class GroupManager {
     }
 
     private boolean tryAddTeamToGroup(Team team, Group group) {
+        if(group.freePlaces() < 1) {
+            return false;
+        }
         if(restrictions.stream().anyMatch(r -> !r.isProhibited(group,team))) {
             group.addTeam(team);
             return true;

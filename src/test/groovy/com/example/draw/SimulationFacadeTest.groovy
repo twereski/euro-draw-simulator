@@ -50,7 +50,7 @@ class SimulationFacadeTest extends Specification {
                 .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
         def teams4 = ['Hungary', 'Romania', 'Greece', 'Albania', 'Montenegro', 'Cyprus', 'Estonia', 'Slovenia', 'Lithuania', 'Georgia']
                 .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
-        def teams5 = ['FYR Macedonia', 'Kosovo', 'Belarus', 'Luxembourg', 'Armenia', 'Armenia', 'Azerbaijan', 'Kazakhstan', 'Moldova', 'Gibraltar', 'Faroe Islands']
+        def teams5 = ['FYR Macedonia', 'Kosovo', 'Belarus', 'Luxembourg', 'Armenia', 'Azerbaijan', 'Kazakhstan', 'Moldova', 'Gibraltar', 'Faroe Islands']
                 .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
         def teams6 = ['Latvia', 'Liechtenstein', 'Andorra', 'Malta', 'San Marino']
                 .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
