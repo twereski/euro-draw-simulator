@@ -1,10 +1,10 @@
 package com.example.draw
 
+import com.example.draw.domain.Team
 import com.example.draw.domain.group.Group
 import com.example.draw.domain.group.GroupRepository
 import com.example.draw.domain.pot.Pot
 import com.example.draw.domain.restrictions.ProhibitedTeams
-import com.example.draw.domain.Team
 import com.example.draw.infrastracture.InMemoryGroupRepository
 import com.example.draw.infrastracture.InMemoryPotRepository
 import javafx.util.Pair

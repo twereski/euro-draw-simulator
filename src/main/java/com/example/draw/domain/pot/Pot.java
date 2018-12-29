@@ -22,7 +22,7 @@ public class Pot {
     }
 
     public Team draw() {
-        if(teams.isEmpty()) {
+        if (teams.isEmpty()) {
             throw new DomainException();
         }
         return teams.remove(random.nextInt(teams.size()));

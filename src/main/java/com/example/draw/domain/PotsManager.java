@@ -10,7 +10,7 @@ public class PotsManager {
     private Pot currentPot;
 
     public PotsManager(List<Pot> pots) {
-        if(pots.isEmpty()) {
+        if (pots.isEmpty()) {
             throw new DomainException();
         }
         this.pots = pots;
@@ -22,8 +22,8 @@ public class PotsManager {
     }
 
     public Team getRandomFromCurrentPot() {
-        if(currentPot.teams().isEmpty()) {
-            if(!pots.iterator().hasNext()) {
+        if (currentPot.teams().isEmpty()) {
+            if (!pots.iterator().hasNext()) {
                 throw new DomainException();
             }
             currentPot = pots.get(pots.indexOf(currentPot) + 1);

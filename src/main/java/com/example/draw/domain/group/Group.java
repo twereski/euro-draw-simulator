@@ -22,7 +22,7 @@ public class Group {
     }
 
     public void addTeam(Team team) {
-        if(freePlaces() == 0) {
+        if (freePlaces() == 0) {
             throw new DomainException();
         }
         teams.add(team);
@@ -32,7 +32,7 @@ public class Group {
         return capacity - teams.size();
     }
 
-    int size () {
+    int size() {
         return teams.size();
     }
 }

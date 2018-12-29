@@ -1,6 +1,7 @@
 package com.example.draw.domain.group;
 
 import com.example.draw.domain.DomainException;
+
 import java.util.List;
 
 public class Groups {
@@ -14,19 +15,17 @@ public class Groups {
         sort();
     }
 
-    public Group defaultGroup()
-    {
+    public Group defaultGroup() {
         sort();
-        return  firstNotFull();
+        return firstNotFull();
     }
 
-    public Group getNext(Group group)
-    {
-        int i = groups.indexOf(group)+1;
-        if(groups.size() == i) {
+    public Group getNext(Group group) {
+        int i = groups.indexOf(group) + 1;
+        if (groups.size() == i) {
             return firstNotFull();
         }
-        return  groups.get(i);
+        return groups.get(i);
     }
 
     private Group firstNotFull() {
@@ -36,11 +35,11 @@ public class Groups {
 
     private void sort() {
         this.groups.sort((g1, g2) -> {
-           if( minCapacity - g1.size() == minCapacity - g2.size()) {
+            if (minCapacity - g1.size() == minCapacity - g2.size()) {
                 return g1.getName().compareTo(g2.getName());
-           } else {
+            } else {
                 return g2.freePlaces() - g1.freePlaces();
-           }
+            }
         });
     }
 

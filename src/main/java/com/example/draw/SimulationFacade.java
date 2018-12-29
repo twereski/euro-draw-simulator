@@ -1,6 +1,8 @@
 package com.example.draw;
 
-import com.example.draw.domain.*;
+import com.example.draw.domain.GroupManager;
+import com.example.draw.domain.PotsManager;
+import com.example.draw.domain.Team;
 import com.example.draw.domain.group.Group;
 import com.example.draw.domain.group.GroupRepository;
 import com.example.draw.domain.group.Groups;

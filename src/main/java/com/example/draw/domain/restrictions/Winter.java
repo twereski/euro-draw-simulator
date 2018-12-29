@@ -1,7 +1,7 @@
 package com.example.draw.domain.restrictions;
 
-import com.example.draw.domain.group.Group;
 import com.example.draw.domain.Team;
+import com.example.draw.domain.group.Group;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class Winter implements Restriction {
     }
 
     public boolean isProhibited(Group group, Team team) {
-        if(!winterTeams.contains(team)) {
+        if (!winterTeams.contains(team)) {
             return false;
         }
         List<Team> potentialGroup = group.getTeams();

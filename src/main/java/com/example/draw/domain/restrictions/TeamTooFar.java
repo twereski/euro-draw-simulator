@@ -20,6 +20,6 @@ public class TeamTooFar {
 
     int commonTeams(List<Team> teams) {
         teams.retainAll(toFarTeams);
-        return  teams.size();
+        return teams.size();
     }
 }
