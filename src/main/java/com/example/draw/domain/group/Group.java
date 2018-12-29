@@ -16,9 +16,9 @@ public class Group {
     @Getter
     private List<Team> teams = new ArrayList<>();
 
-    public Group(Character name) {
+    public Group(Character name, int capacity) {
         this.name = name;
-        capacity = 6;
+        this.capacity = capacity;
     }
 
     public void addTeam(Team team) {
