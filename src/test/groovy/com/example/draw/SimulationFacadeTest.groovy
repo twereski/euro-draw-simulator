@@ -34,9 +34,9 @@ class SimulationFacadeTest extends Specification {
         when: "the simulation is running according to procedure"
         facade.run()
         then: "every group is full (according group capacity)"
+        groupRepository.findAll().each { assert it.freePlaces() == 0 }
         and: "pots are empty"
-        def pots = potRepository.findAll()
-        pots.each { assert it.teams().isEmpty() }
+        potRepository.findAll().each { assert it.teams().isEmpty() }
         and: "competition-related reasons role has been fulfilled"
         and: "prohibited team clashes role has been fulfilled"
         and: "winter venue restrictions role has been fulfilled"

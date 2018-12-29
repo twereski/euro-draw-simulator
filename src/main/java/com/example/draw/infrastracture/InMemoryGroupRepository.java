@@ -23,4 +23,9 @@ public class InMemoryGroupRepository implements GroupRepository {
     public Group get(Character name) {
         return map.get(name);
     }
+
+    @Override
+    public void saveAll(List<Group> groups) {
+        groups.forEach(g -> map.put(g.getName(), g));
+    }
 }

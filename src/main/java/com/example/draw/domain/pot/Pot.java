@@ -3,11 +3,13 @@ package com.example.draw.domain.pot;
 import com.example.draw.domain.DomainException;
 import com.example.draw.domain.Team;
 import com.google.common.collect.ImmutableList;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.List;
 import java.util.Random;
 
+@EqualsAndHashCode(of = {"id"})
 public class Pot {
 
     @Getter

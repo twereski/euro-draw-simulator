@@ -8,4 +8,6 @@ public interface GroupRepository {
     Group save(Group pot);
 
     Group get(Character name);
+
+    void saveAll(List<Group> groups);
 }

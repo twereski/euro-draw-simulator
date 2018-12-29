@@ -1,7 +1,9 @@
 package com.example.draw.domain.restrictions;
 
 import com.example.draw.domain.Team;
+import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeamTooFar {
@@ -18,8 +20,9 @@ public class TeamTooFar {
         return this.team.equals(team);
     }
 
-    int commonTeams(List<Team> teams) {
-        teams.retainAll(toFarTeams);
-        return teams.size();
+    int commonTeams(ImmutableList<Team> teams) {
+        List<Team> copyOf = new ArrayList<>(teams);
+        copyOf.retainAll(toFarTeams);
+        return copyOf.size();
     }
 }

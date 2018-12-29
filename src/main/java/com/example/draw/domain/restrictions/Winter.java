@@ -3,6 +3,7 @@ package com.example.draw.domain.restrictions;
 import com.example.draw.domain.Team;
 import com.example.draw.domain.group.Group;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Winter implements Restriction {
@@ -18,7 +19,7 @@ public class Winter implements Restriction {
         if (!winterTeams.contains(team)) {
             return false;
         }
-        List<Team> potentialGroup = group.getTeams();
+        List<Team> potentialGroup = new ArrayList<>(group.getTeams());
         potentialGroup.add(team);
         potentialGroup.retainAll(winterTeams);
         return potentialGroup.size() > MAX_IN_GROUP;

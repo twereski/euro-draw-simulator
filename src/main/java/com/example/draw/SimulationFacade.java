@@ -36,5 +36,6 @@ public class SimulationFacade {
             groupManager.addTeam(randomTeam);
         }
         potRepository.saveAll(pots);
+        groupRepository.saveAll(groups);
     }
 }
