@@ -5,6 +5,9 @@ import com.example.draw.domain.group.Group
 import com.example.draw.domain.group.GroupRepository
 import com.example.draw.domain.pot.Pot
 import com.example.draw.domain.restrictions.ProhibitedTeams
+import com.example.draw.domain.restrictions.TeamTooFar
+import com.example.draw.domain.restrictions.Travel
+import com.example.draw.domain.restrictions.Winter
 import com.example.draw.infrastracture.InMemoryGroupRepository
 import com.example.draw.infrastracture.InMemoryPotRepository
 import javafx.util.Pair
@@ -32,6 +35,7 @@ class SimulationFacadeTest extends Specification {
         facade.run()
         then: "every group is full (according group capacity)"
         and: "pots are empty"
+        def pots = potRepository.findAll()
         pots.each { assert it.teams().isEmpty() }
         and: "competition-related reasons role has been fulfilled"
         and: "prohibited team clashes role has been fulfilled"
@@ -85,10 +89,23 @@ class SimulationFacadeTest extends Specification {
     }
 
     def setUpWinter() {
-
+        def teams = ['Belarus', 'Estonia', 'Faroe Islands', 'Finland', 'Iceland', 'Latvia', 'Lithuania',
+        'Norway', 'Russia', 'Ukraine'].stream().map() {s -> new Team(s)}.collect(Collectors.toList())
+        return new Winter(teams)
     }
 
     def setUpTravel() {
+        def teams1 = ['Andorra', 'England', 'France', 'Faroe Islands', 'Gibraltar', 'Iceland',
+        'Malta', 'Northern Ireland', 'Portugal', 'Republic of Ireland', 'Scotland', 'Spain', 'Wales']
+                .stream().map() {s -> new Team(s)}.collect(Collectors.toList())
+        def tooFar1 = new TeamTooFar(new Team('Kazakhstan'), teams1)
+        def teams2 = ['Gibraltar', 'Iceland', 'Portugal']
+                .stream().map() {s -> new Team(s)}.collect(Collectors.toList())
+        def tooFar2 = new TeamTooFar(new Team('Azerbaijan'), teams2)
+        def teams3 = ['Armenia', 'Cyprus', 'Georgia', 'Israel']
+                .stream().map() {s -> new Team(s)}.collect(Collectors.toList())
+        def tooFar3 = new TeamTooFar(new Team('Iceland'), teams3)
 
+        return new Travel([tooFar1, tooFar2, tooFar3])
     }
 }

@@ -35,6 +35,6 @@ public class SimulationFacade {
             Team randomTeam = potsManager.getRandomFromCurrentPot();
             groupManager.addTeam(randomTeam);
         }
-
+        potRepository.saveAll(pots);
     }
 }

@@ -16,6 +16,11 @@ public class InMemoryPotRepository implements PotRepository {
         return pot;
     }
 
+    @Override
+    public void saveAll(List<Pot> pots) {
+        pots.forEach(p -> map.put(p.getId(), p));
+    }
+
     public List<Pot> findAll() {
         return new ArrayList<>(map.values());
     }

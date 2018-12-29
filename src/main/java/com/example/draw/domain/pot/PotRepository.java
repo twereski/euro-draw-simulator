@@ -7,5 +7,7 @@ public interface PotRepository {
 
     Pot save(Pot pot);
 
+    void saveAll(List<Pot> pots);
+
     Pot get(int id);
 }
