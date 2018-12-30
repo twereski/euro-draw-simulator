@@ -5,17 +5,18 @@ import com.example.draw.domain.group.Group;
 
 import java.util.List;
 
-public class Winter implements Restriction {
+public class Hosts implements Restriction {
 
     private static final int MAX_IN_GROUP = 2;
-    private List<Team> winterTeams;
+    private final List<Team> hosts;
 
-    public Winter(List<Team> winterTeams) {
-        this.winterTeams = winterTeams;
+    public Hosts(List<Team> hosts) {
+        this.hosts = hosts;
     }
 
+    @Override
     public boolean isProhibited(Group group, Team team) {
-        return Restriction.potentialGroupMax(group, team, winterTeams, MAX_IN_GROUP);
+        return Restriction.potentialGroupMax(group, team, hosts, MAX_IN_GROUP);
     }
 
 }

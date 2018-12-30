@@ -4,10 +4,7 @@ import com.example.draw.domain.Team
 import com.example.draw.domain.group.Group
 import com.example.draw.domain.group.GroupRepository
 import com.example.draw.domain.pot.Pot
-import com.example.draw.domain.restrictions.ProhibitedTeams
-import com.example.draw.domain.restrictions.TeamTooFar
-import com.example.draw.domain.restrictions.Travel
-import com.example.draw.domain.restrictions.Winter
+import com.example.draw.domain.restrictions.*
 import com.example.draw.infrastracture.InMemoryGroupRepository
 import com.example.draw.infrastracture.InMemoryPotRepository
 import javafx.util.Pair
@@ -26,19 +23,36 @@ class SimulationFacadeTest extends Specification {
         setUpGroups(groupRepository)
         and: "prohibited team clashes are set"
         def prohibited = setUpProhibitedTeams()
+        and: "hosts team clashes are set"
+        def hosts = setUpHosts()
         and: "winter venue restrictions teams are set"
         def winter = setUpWinter()
         and: "excessive travel restrictions are set"
         def travel = setUpTravel()
-        def facade = new SimulationFacade(potRepository, groupRepository, [prohibited, winter, travel])
+        def facade = new SimulationFacade(potRepository, groupRepository, [prohibited, winter, travel, hosts])
         when: "the simulation is running according to procedure"
         facade.run()
         then: "every group is full (according group capacity)"
         groupRepository.findAll().each { assert it.freePlaces() == 0 }
         and: "pots are empty"
         potRepository.findAll().each { assert it.teams().isEmpty() }
-        and: "competition-related reasons role has been fulfilled"
-        and: "prohibited team clashes role has been fulfilled"
+
+        and: "teams from pot 0 are drawn into the group A-D"
+        def teams0 = ['Switzerland', 'Portugal', 'Netherlands', 'England']
+                .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
+        def groupA = groupRepository.get('A' as char)
+        !Collections.disjoint(groupA.getTeams(), teams0)
+        def groupC = groupRepository.get('C' as char)
+        !Collections.disjoint(groupC.getTeams(), teams0)
+
+        and: "teams from pot 6 are drawn into the group F-J"
+        def teams6 = ['Latvia', 'Liechtenstein', 'Andorra', 'Malta', 'San Marino']
+                .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
+        def groupF = groupRepository.get('F' as char)
+        !Collections.disjoint(groupF.getTeams(), teams6)
+        def groupH = groupRepository.get('H' as char)
+        !Collections.disjoint(groupH.getTeams(), teams6)
+
         and: "winter venue restrictions role has been fulfilled"
         and: "excessive travel restriction role has been fulfilled"
     }
@@ -92,6 +106,13 @@ class SimulationFacadeTest extends Specification {
         def teams = ['Belarus', 'Estonia', 'Faroe Islands', 'Finland', 'Iceland', 'Latvia', 'Lithuania',
         'Norway', 'Russia', 'Ukraine'].stream().map() {s -> new Team(s)}.collect(Collectors.toList())
         return new Winter(teams)
+    }
+
+    def setUpHosts() {
+        def teams = ['England', 'Germany', 'Italy', 'Russia', 'Romania', 'Azerbaijan', 'Netherlands',
+                     'Republic of Ireland', 'Scotland', 'Hungary', 'Denmark', 'Spain']
+                .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
+        return new Hosts(teams)
     }
 
     def setUpTravel() {
