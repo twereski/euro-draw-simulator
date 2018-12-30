@@ -32,7 +32,7 @@ public class GroupFacade {
     }
 
     private boolean tryAddTeamToGroup(Team team, Group group) {
-        if (group.freePlaces() < 1) {
+        if (!group.hasFreePlaces()) {
             return false;
         }
         if (restrictions.stream().noneMatch(r -> r.isProhibited(group, team))) {

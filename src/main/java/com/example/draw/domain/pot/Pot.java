@@ -13,9 +13,9 @@ import java.util.Random;
 public class Pot {
 
     @Getter
-    private int id;
-    private List<Team> teams;
-    private Random random;
+    private final int id;
+    private final List<Team> teams;
+    private final Random random;
 
     public Pot(int id, List<Team> teams) {
         this.id = id;

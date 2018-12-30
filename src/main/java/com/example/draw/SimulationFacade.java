@@ -11,8 +11,8 @@ import java.util.List;
 
 public class SimulationFacade {
 
-    private PotsFacade potsFacade;
-    private GroupFacade groupFacade;
+    private final PotsFacade potsFacade;
+    private final GroupFacade groupFacade;
 
     public SimulationFacade(PotsFacade potsFacade, GroupFacade groupFacade) {
         this.potsFacade = potsFacade;

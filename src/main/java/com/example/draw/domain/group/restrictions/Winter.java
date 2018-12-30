@@ -8,7 +8,7 @@ import java.util.List;
 public class Winter implements Restriction {
 
     private static final int MAX_IN_GROUP = 2;
-    private List<Team> winterTeams;
+    private final List<Team> winterTeams;
 
     public Winter(List<Team> winterTeams) {
         this.winterTeams = winterTeams;

@@ -17,25 +17,29 @@ public class Group {
     @Getter
     private final int capacity;
 
-    private List<Team> teams = new ArrayList<>();
+    private final List<Team> teams = new ArrayList<>();
 
     public Group(Character name, int capacity) {
         this.name = name;
         this.capacity = capacity;
     }
 
-    public void addTeam(Team team) {
-        if (freePlaces() == 0) {
+    public ImmutableList<Team> getTeams() {
+        return ImmutableList.copyOf(teams);
+    }
+
+    public boolean hasFreePlaces() {
+        return freePlaces() >= 1;
+    }
+
+    void addTeam(Team team) {
+        if (!hasFreePlaces()) {
             throw new DomainException();
         }
         teams.add(team);
     }
 
-    public ImmutableList<Team> getTeams() {
-        return ImmutableList.copyOf(teams);
-    }
-
-    public int freePlaces() {
+    int freePlaces() {
         return capacity - teams.size();
     }
 

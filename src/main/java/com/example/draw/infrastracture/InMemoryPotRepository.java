@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryPotRepository implements PotRepository {
 
-    private ConcurrentHashMap<Integer, Pot> map = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Integer, Pot> map = new ConcurrentHashMap<>();
 
     public Pot save(Pot pot) {
         map.put(pot.getId(), pot);

@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryGroupRepository implements GroupRepository {
 
-    private ConcurrentHashMap<Character, Group> map = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Character, Group> map = new ConcurrentHashMap<>();
 
     public Group save(Group group) {
         map.put(group.getName(), group);

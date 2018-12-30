@@ -26,14 +26,14 @@ class SimulationFacadeTest extends Specification {
         def winter = setUpWinter()
         and: "excessive travel restrictions are set"
         def travel = setUpTravel()
-        and: "prapare facade"
+        and: "prepare facade"
         def facade = configuration.prepareSimulation()
         facade.prepareSimulation(pots, groups)
         facade.setRestrictions([prohibited, winter, travel, hosts])
         when: "the simulation is running according to procedure"
         facade.run()
         then: "every group is full (according group capacity)"
-        configuration.getGroupRepository().findAll().each { assert it.freePlaces() == 0 }
+        configuration.getGroupRepository().findAll().each { assert !it.hasFreePlaces() }
         and: "pots are empty"
         configuration.getPotRepository().findAll().each { assert it.teams().isEmpty() }
 

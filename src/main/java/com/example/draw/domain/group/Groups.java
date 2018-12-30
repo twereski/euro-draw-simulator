@@ -1,11 +1,10 @@
 package com.example.draw.domain.group;
 
 import com.example.draw.domain.DomainException;
-import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
-public class Groups {
+class Groups {
 
     private final List<Group> groups;
     private final int minCapacity;
@@ -16,12 +15,12 @@ public class Groups {
         sort();
     }
 
-    public Group defaultGroup() {
+    Group defaultGroup() {
         sort();
         return firstNotFull();
     }
 
-    public Group getNext(Group group) {
+    Group getNext(Group group) {
         int i = groups.indexOf(group) + 1;
         if (groups.size() == i) {
             return firstNotFull();
@@ -29,12 +28,8 @@ public class Groups {
         return groups.get(i);
     }
 
-    public ImmutableList<Group> getGroups() {
-        return ImmutableList.copyOf(groups);
-    }
-
     private Group firstNotFull() {
-        return groups.stream().filter(g -> g.freePlaces() > 0).findFirst()
+        return groups.stream().filter(Group::hasFreePlaces).findFirst()
                 .orElseThrow(DomainException::new);
     }
 
@@ -43,7 +38,7 @@ public class Groups {
             if (minCapacity - g1.size() == minCapacity - g2.size()) {
                 return g1.getName().compareTo(g2.getName());
             } else {
-                return g2.freePlaces() - g1.freePlaces();
+                return Integer.compare(g2.freePlaces(), g1.freePlaces());
             }
         });
     }
