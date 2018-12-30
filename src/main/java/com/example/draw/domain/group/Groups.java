@@ -28,9 +28,13 @@ class Groups {
         return groups.get(i);
     }
 
+    int size() {
+        return groups.size();
+    }
+
     private Group firstNotFull() {
         return groups.stream().filter(Group::hasFreePlaces).findFirst()
-                .orElseThrow(DomainException::new);
+                .orElseThrow(() -> new DomainException("There is not full group"));
     }
 
     private void sort() {

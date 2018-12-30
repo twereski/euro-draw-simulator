@@ -34,7 +34,7 @@ public class Group {
 
     void addTeam(Team team) {
         if (!hasFreePlaces()) {
-            throw new DomainException();
+            throw new DomainException("Cannot add team, group is full");
         }
         teams.add(team);
     }

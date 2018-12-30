@@ -1,5 +1,6 @@
 package com.example.draw.domain.group;
 
+import com.example.draw.domain.DomainException;
 import com.example.draw.domain.Team;
 import com.example.draw.domain.group.restrictions.Restriction;
 
@@ -26,8 +27,13 @@ public class GroupFacade {
 
     public void addTeam(Team team) {
         Group group = groups.defaultGroup();
+        int attempt = 0;
         while (!tryAddTeamToGroup(team, group)) {
+            if (attempt > groups.size()) {
+                throw new DomainException("Cannot add team to any group");
+            }
             group = groups.getNext(group);
+            attempt++;
         }
     }
 

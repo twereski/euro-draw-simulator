@@ -26,38 +26,38 @@ class SimulationFacadeTest extends Specification {
         def winter = setUpWinter()
         and: "excessive travel restrictions are set"
         def travel = setUpTravel()
-        and: "prepare facade"
+        and: "set initial conditions"
         def facade = configuration.prepareSimulation()
         facade.prepareSimulation(pots, groups)
         facade.setRestrictions([prohibited, winter, travel, hosts])
         when: "the simulation is running according to procedure"
         facade.run()
-        then: "every group is full (according group capacity)"
+        then: "every group should be full (according group capacity)"
         configuration.getGroupRepository().findAll().each { assert !it.hasFreePlaces() }
         and: "pots are empty"
         configuration.getPotRepository().findAll().each { assert it.teams().isEmpty() }
 
-        and: "teams from pot 0 are drawn into the group A-D"
-        def teams0 = ['Switzerland', 'Portugal', 'Netherlands', 'England']
-                .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
+        and: "teams from pot 0 should be drawn into the group A-D"
         def groupA = configuration.getGroupRepository().get('A' as char)
-        !Collections.disjoint(groupA.getTeams(), teams0)
         def groupC = configuration.getGroupRepository().get('C' as char)
-        !Collections.disjoint(groupC.getTeams(), teams0)
+        !Collections.disjoint(groupA.getTeams(), teamsInPots().get(0))
+        !Collections.disjoint(groupC.getTeams(), teamsInPots().get(0))
 
-        and: "teams from pot 6 are drawn into the group F-J"
-        def teams6 = ['Latvia', 'Liechtenstein', 'Andorra', 'Malta', 'San Marino']
-                .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
+        and: "teams from pot 6 should be drawn into the group F-J"
         def groupF = configuration.getGroupRepository().get('F' as char)
-        !Collections.disjoint(groupF.getTeams(), teams6)
         def groupH = configuration.getGroupRepository().get('H' as char)
-        !Collections.disjoint(groupH.getTeams(), teams6)
+        !Collections.disjoint(groupF.getTeams(), teamsInPots().get(6))
+        !Collections.disjoint(groupH.getTeams(), teamsInPots().get(6))
 
-        and: "winter venue restrictions role has been fulfilled"
-        and: "excessive travel restriction role has been fulfilled"
+        and: "teams from pot 1 should be drawn into the group E-J"
+        def groupE = configuration.getGroupRepository().get('E' as char)
+        def groupJ = configuration.getGroupRepository().get('J' as char)
+        !Collections.disjoint(groupE.getTeams(), teamsInPots().get(1))
+        !Collections.disjoint(groupJ.getTeams(), teamsInPots().get(1))
+
     }
 
-    def setUpPots() {
+    def teamsInPots() {
         def teams0 = ['Switzerland', 'Portugal', 'Netherlands', 'England']
                 .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
         def teams1 = ['Belgium', 'France', 'Spain', 'Italy', 'Croatia', 'Poland']
@@ -73,13 +73,21 @@ class SimulationFacadeTest extends Specification {
         def teams6 = ['Latvia', 'Liechtenstein', 'Andorra', 'Malta', 'San Marino']
                 .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
 
-        def pot0 = new Pot(0, teams0)
-        def pot1 = new Pot(1, teams1)
-        def pot2 = new Pot(2, teams2)
-        def pot3 = new Pot(3, teams3)
-        def pot4 = new Pot(4, teams4)
-        def pot5 = new Pot(5, teams5)
-        def pot6 = new Pot(6, teams6)
+        def map = [0: teams0, 1: teams1, 2: teams2, 3: teams3, 4: teams4, 5: teams5, 6: teams6]
+
+        return map
+    }
+
+    def setUpPots() {
+        def map = teamsInPots()
+
+        def pot0 = new Pot(0, map.get(0))
+        def pot1 = new Pot(1, map.get(1))
+        def pot2 = new Pot(2, map.get(2))
+        def pot3 = new Pot(3, map.get(3))
+        def pot4 = new Pot(4, map.get(4))
+        def pot5 = new Pot(5, map.get(5))
+        def pot6 = new Pot(6, map.get(6))
 
         return [pot0, pot1, pot2, pot3, pot4, pot5, pot6]
     }

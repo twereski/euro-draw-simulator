@@ -25,7 +25,7 @@ public class Pot {
 
     public Team draw() {
         if (teams.isEmpty()) {
-            throw new DomainException();
+            throw new DomainException("Cannot draw from this pot because is empty");
         }
         return teams.remove(random.nextInt(teams.size()));
     }

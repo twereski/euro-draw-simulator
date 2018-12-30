@@ -23,7 +23,7 @@ public class PotsFacade {
     }
 
     public Team getRandomFromCurrentPot() {
-        Pot currentPot = repository.getFirstNotEmpty().orElseThrow(DomainException::new);
+        Pot currentPot = repository.getFirstNotEmpty().orElseThrow(() -> new DomainException("There is not full pot"));
         Team team = currentPot.draw();
         repository.save(currentPot);
         return team;
