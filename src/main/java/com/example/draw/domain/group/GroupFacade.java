@@ -1,19 +1,17 @@
-package com.example.draw.domain;
+package com.example.draw.domain.group;
 
-import com.example.draw.domain.group.Group;
-import com.example.draw.domain.group.GroupRepository;
-import com.example.draw.domain.group.Groups;
-import com.example.draw.domain.restrictions.Restriction;
+import com.example.draw.domain.Team;
+import com.example.draw.domain.group.restrictions.Restriction;
 
 import java.util.List;
 
-public class GroupManager {
+public class GroupFacade {
 
     private final GroupRepository repository;
     private Groups groups;
     private List<Restriction> restrictions;
 
-    public GroupManager(GroupRepository repository) {
+    public GroupFacade(GroupRepository repository) {
         this.repository = repository;
     }
 

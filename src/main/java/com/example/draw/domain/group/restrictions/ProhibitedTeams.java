@@ -1,4 +1,4 @@
-package com.example.draw.domain.restrictions;
+package com.example.draw.domain.group.restrictions;
 
 
 import com.example.draw.domain.Team;

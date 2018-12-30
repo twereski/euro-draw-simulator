@@ -1,8 +1,8 @@
 package com.example.draw.infrastracture;
 
 import com.example.draw.SimulationFacade;
-import com.example.draw.domain.GroupManager;
-import com.example.draw.domain.PotsManager;
+import com.example.draw.domain.group.GroupFacade;
+import com.example.draw.domain.pot.PotsFacade;
 import lombok.Getter;
 
 public class ConfigurationInMemory {
@@ -16,11 +16,11 @@ public class ConfigurationInMemory {
         return new SimulationFacade(preparePots(), prepareGroups());
     }
 
-    private GroupManager prepareGroups() {
-        return new GroupManager(groupRepository);
+    private GroupFacade prepareGroups() {
+        return new GroupFacade(groupRepository);
     }
 
-    private PotsManager preparePots() {
-        return new PotsManager(potRepository);
+    private PotsFacade preparePots() {
+        return new PotsFacade(potRepository);
     }
 }

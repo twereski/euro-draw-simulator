@@ -1,15 +1,15 @@
-package com.example.draw.domain;
+package com.example.draw.domain.pot;
 
-import com.example.draw.domain.pot.Pot;
-import com.example.draw.domain.pot.PotRepository;
+import com.example.draw.domain.DomainException;
+import com.example.draw.domain.Team;
 
 import java.util.List;
 
-public class PotsManager {
+public class PotsFacade {
 
     private final PotRepository repository;
 
-    public PotsManager(PotRepository repository) {
+    public PotsFacade(PotRepository repository) {
         this.repository = repository;
 
     }

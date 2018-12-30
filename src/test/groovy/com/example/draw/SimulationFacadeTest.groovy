@@ -2,8 +2,8 @@ package com.example.draw
 
 import com.example.draw.domain.Team
 import com.example.draw.domain.group.Group
+import com.example.draw.domain.group.restrictions.*
 import com.example.draw.domain.pot.Pot
-import com.example.draw.domain.restrictions.*
 import com.example.draw.infrastracture.ConfigurationInMemory
 import javafx.util.Pair
 import spock.lang.Specification
