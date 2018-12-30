@@ -1,6 +1,7 @@
 package com.example.draw.domain.group;
 
 import com.example.draw.domain.DomainException;
+import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
@@ -26,6 +27,10 @@ public class Groups {
             return firstNotFull();
         }
         return groups.get(i);
+    }
+
+    public ImmutableList<Group> getGroups() {
+        return ImmutableList.copyOf(groups);
     }
 
     private Group firstNotFull() {

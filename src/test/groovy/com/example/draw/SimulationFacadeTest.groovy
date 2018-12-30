@@ -2,25 +2,22 @@ package com.example.draw
 
 import com.example.draw.domain.Team
 import com.example.draw.domain.group.Group
-import com.example.draw.domain.group.GroupRepository
 import com.example.draw.domain.pot.Pot
 import com.example.draw.domain.restrictions.*
-import com.example.draw.infrastracture.InMemoryGroupRepository
-import com.example.draw.infrastracture.InMemoryPotRepository
+import com.example.draw.infrastracture.ConfigurationInMemory
 import javafx.util.Pair
 import spock.lang.Specification
 
 import java.util.stream.Collectors
 
 class SimulationFacadeTest extends Specification {
-    InMemoryPotRepository potRepository = new InMemoryPotRepository()
-    InMemoryGroupRepository groupRepository = new InMemoryGroupRepository()
+    ConfigurationInMemory configuration = new ConfigurationInMemory()
 
     def "Simulation of draws of euro elimination groups"() {
         given: "pots with teams according uefa ranking"
-        setUpPots(potRepository)
+        def pots = setUpPots()
         and: "empty groups where team will be put after draw"
-        setUpGroups(groupRepository)
+        def groups = setUpGroups()
         and: "prohibited team clashes are set"
         def prohibited = setUpProhibitedTeams()
         and: "hosts team clashes are set"
@@ -29,35 +26,38 @@ class SimulationFacadeTest extends Specification {
         def winter = setUpWinter()
         and: "excessive travel restrictions are set"
         def travel = setUpTravel()
-        def facade = new SimulationFacade(potRepository, groupRepository, [prohibited, winter, travel, hosts])
+        and: "prapare facade"
+        def facade = configuration.prepareSimulation()
+        facade.prepareSimulation(pots, groups)
+        facade.setRestrictions([prohibited, winter, travel, hosts])
         when: "the simulation is running according to procedure"
         facade.run()
         then: "every group is full (according group capacity)"
-        groupRepository.findAll().each { assert it.freePlaces() == 0 }
+        configuration.getGroupRepository().findAll().each { assert it.freePlaces() == 0 }
         and: "pots are empty"
-        potRepository.findAll().each { assert it.teams().isEmpty() }
+        configuration.getPotRepository().findAll().each { assert it.teams().isEmpty() }
 
         and: "teams from pot 0 are drawn into the group A-D"
         def teams0 = ['Switzerland', 'Portugal', 'Netherlands', 'England']
                 .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
-        def groupA = groupRepository.get('A' as char)
+        def groupA = configuration.getGroupRepository().get('A' as char)
         !Collections.disjoint(groupA.getTeams(), teams0)
-        def groupC = groupRepository.get('C' as char)
+        def groupC = configuration.getGroupRepository().get('C' as char)
         !Collections.disjoint(groupC.getTeams(), teams0)
 
         and: "teams from pot 6 are drawn into the group F-J"
         def teams6 = ['Latvia', 'Liechtenstein', 'Andorra', 'Malta', 'San Marino']
                 .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
-        def groupF = groupRepository.get('F' as char)
+        def groupF = configuration.getGroupRepository().get('F' as char)
         !Collections.disjoint(groupF.getTeams(), teams6)
-        def groupH = groupRepository.get('H' as char)
+        def groupH = configuration.getGroupRepository().get('H' as char)
         !Collections.disjoint(groupH.getTeams(), teams6)
 
         and: "winter venue restrictions role has been fulfilled"
         and: "excessive travel restriction role has been fulfilled"
     }
 
-    def setUpPots(InMemoryPotRepository potRepository) {
+    def setUpPots() {
         def teams0 = ['Switzerland', 'Portugal', 'Netherlands', 'England']
                 .stream().map() { s -> new Team(s) }.collect(Collectors.toList())
         def teams1 = ['Belgium', 'France', 'Spain', 'Italy', 'Croatia', 'Poland']
@@ -81,17 +81,13 @@ class SimulationFacadeTest extends Specification {
         def pot5 = new Pot(5, teams5)
         def pot6 = new Pot(6, teams6)
 
-        def pots = [pot0, pot1, pot2, pot3, pot4, pot5, pot6]
-
-        pots.each {
-            p -> potRepository.save(p)
-        }
+        return [pot0, pot1, pot2, pot3, pot4, pot5, pot6]
     }
 
-    def setUpGroups(GroupRepository groupRepository) {
-        ['F': 6, 'A': 5, 'B': 5, 'C': 5, 'D': 5, 'E': 5, 'G': 6, 'H': 6, 'I': 6, 'J': 6]
+    def setUpGroups() {
+        return ['F': 6, 'A': 5, 'B': 5, 'C': 5, 'D': 5, 'E': 5, 'G': 6, 'H': 6, 'I': 6, 'J': 6]
                 .entrySet().stream().map() { s -> new Group(new Character(s.getKey() as char), s.getValue()) }
-                .map() { g -> groupRepository.save(g) }.collect(Collectors.toList())
+                .collect(Collectors.toList())
     }
 
     def setUpProhibitedTeams() {

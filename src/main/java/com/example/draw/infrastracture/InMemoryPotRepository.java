@@ -5,6 +5,8 @@ import com.example.draw.domain.pot.PotRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryPotRepository implements PotRepository {
@@ -23,6 +25,11 @@ public class InMemoryPotRepository implements PotRepository {
 
     public List<Pot> findAll() {
         return new ArrayList<>(map.values());
+    }
+
+    @Override
+    public Optional<Pot> getFirstNotEmpty() {
+        return map.entrySet().stream().filter(e -> !e.getValue().teams().isEmpty()).map(Map.Entry::getValue).findFirst();
     }
 
     public Pot get(int id) {

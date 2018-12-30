@@ -5,7 +5,7 @@ import java.util.List;
 public interface GroupRepository {
     List<Group> findAll();
 
-    Group save(Group pot);
+    Group save(Group group);
 
     Group get(Character name);
 

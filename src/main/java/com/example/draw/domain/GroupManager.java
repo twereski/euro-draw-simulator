@@ -1,6 +1,7 @@
 package com.example.draw.domain;
 
 import com.example.draw.domain.group.Group;
+import com.example.draw.domain.group.GroupRepository;
 import com.example.draw.domain.group.Groups;
 import com.example.draw.domain.restrictions.Restriction;
 
@@ -8,11 +9,20 @@ import java.util.List;
 
 public class GroupManager {
 
-    private final Groups groups;
-    private final List<Restriction> restrictions;
+    private final GroupRepository repository;
+    private Groups groups;
+    private List<Restriction> restrictions;
 
-    public GroupManager(Groups groups, List<Restriction> restrictions) {
-        this.groups = groups;
+    public GroupManager(GroupRepository repository) {
+        this.repository = repository;
+    }
+
+    public void setUpGroups(List<Group> groups) {
+        repository.saveAll(groups);
+        this.groups = new Groups(groups);
+    }
+
+    public void setRestrictions(List<Restriction> restrictions) {
         this.restrictions = restrictions;
     }
 
@@ -29,6 +39,7 @@ public class GroupManager {
         }
         if (restrictions.stream().noneMatch(r -> r.isProhibited(group, team))) {
             group.addTeam(team);
+            repository.save(group);
             return true;
         }
         return false;

@@ -1,33 +1,31 @@
 package com.example.draw.domain;
 
 import com.example.draw.domain.pot.Pot;
+import com.example.draw.domain.pot.PotRepository;
 
 import java.util.List;
 
 public class PotsManager {
 
-    private final List<Pot> pots;
-    private Pot currentPot;
+    private final PotRepository repository;
 
-    public PotsManager(List<Pot> pots) {
-        if (pots.isEmpty()) {
-            throw new DomainException();
-        }
-        this.pots = pots;
-        this.currentPot = pots.get(0);
+    public PotsManager(PotRepository repository) {
+        this.repository = repository;
+
+    }
+
+    public void setUpPots(List<Pot> pots) {
+        repository.saveAll(pots);
     }
 
     public boolean empty() {
-        return this.pots.stream().allMatch(p -> p.teams().isEmpty());
+        return this.repository.findAll().stream().allMatch(p -> p.teams().isEmpty());
     }
 
     public Team getRandomFromCurrentPot() {
-        if (currentPot.teams().isEmpty()) {
-            if (!pots.iterator().hasNext()) {
-                throw new DomainException();
-            }
-            currentPot = pots.get(pots.indexOf(currentPot) + 1);
-        }
-        return currentPot.draw();
+        Pot currentPot = repository.getFirstNotEmpty().orElseThrow(DomainException::new);
+        Team team = currentPot.draw();
+        repository.save(currentPot);
+        return team;
     }
 }
