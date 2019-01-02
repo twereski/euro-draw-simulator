@@ -1,12 +1,15 @@
 package com.example.draw.domain.group.restrictions;
 
 import com.example.draw.domain.Team;
-import com.google.common.collect.ImmutableList;
+import com.example.draw.domain.group.Group;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class TeamTooFar {
+
+    private static final int MAX_IN_GROUP = 2;
 
     private final Team team;
     private final List<Team> toFarTeams;
@@ -16,13 +19,15 @@ public class TeamTooFar {
         this.toFarTeams = toFarTeams;
     }
 
-    boolean isFar(Team team) {
-        return this.team.equals(team);
+    static Predicate<TeamTooFar> isFar(Team team) {
+        return p -> p.team.equals(team);
     }
 
-    int commonTeams(ImmutableList<Team> teams) {
-        List<Team> copyOf = new ArrayList<>(teams);
-        copyOf.retainAll(toFarTeams);
-        return copyOf.size();
+    static Predicate<TeamTooFar> commonTeams(Group group) {
+        return p -> {
+            List<Team> copyOf = new ArrayList<>(group.getTeams());
+            copyOf.retainAll(p.toFarTeams);
+            return copyOf.size() > MAX_IN_GROUP;
+        };
     }
 }
