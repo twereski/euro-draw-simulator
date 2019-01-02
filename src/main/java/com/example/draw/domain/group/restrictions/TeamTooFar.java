@@ -23,7 +23,7 @@ public class TeamTooFar {
         return p -> p.team.equals(team);
     }
 
-    static Predicate<TeamTooFar> commonTeams(Group group) {
+    static Predicate<TeamTooFar> hasCommonTeams(Group group) {
         return p -> {
             List<Team> copyOf = new ArrayList<>(group.getTeams());
             copyOf.retainAll(p.toFarTeams);

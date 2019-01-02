@@ -14,7 +14,7 @@ public class Travel implements Restriction {
 
     public boolean isProhibited(Group group, Team team) {
         return tooFar.stream().anyMatch(
-                TeamTooFar.isFar(team).and(TeamTooFar.commonTeams(group))
+                TeamTooFar.isFar(team).and(TeamTooFar.hasCommonTeams(group))
         );
     }
 }
