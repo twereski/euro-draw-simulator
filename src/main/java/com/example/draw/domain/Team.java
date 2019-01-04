@@ -1,12 +1,10 @@
 package com.example.draw.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Value;
 
 @Value
+@AllArgsConstructor
 public class Team {
-    private final String name;
-
-    public Team(String name) {
-        this.name = name;
-    }
+    String name;
 }

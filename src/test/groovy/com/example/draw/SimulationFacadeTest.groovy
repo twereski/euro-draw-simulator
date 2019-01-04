@@ -35,7 +35,7 @@ class SimulationFacadeTest extends Specification {
         then: "every group should be full (according group capacity)"
         configuration.getGroupRepository().findAll().each { assert !it.hasFreePlaces() }
         and: "pots are empty"
-        configuration.getPotRepository().findAll().each { assert it.teams().isEmpty() }
+        configuration.getPotRepository().findAll().each { assert it.isEmpty() }
 
         and: "teams from pot 0 should be drawn into the group A-D"
         def groupA = configuration.getGroupRepository().get('A' as char)
@@ -89,7 +89,7 @@ class SimulationFacadeTest extends Specification {
         def pot5 = new Pot(5, map.get(5))
         def pot6 = new Pot(6, map.get(6))
 
-        return [pot0, pot1, pot2, pot3, pot4, pot5, pot6]
+        return [pot0, pot1, pot2, pot3, pot4, pot5, pot6].toSet()
     }
 
     def setUpGroups() {
@@ -103,7 +103,7 @@ class SimulationFacadeTest extends Specification {
                      'Serbia' : 'Kosovo', 'Ukraine': 'Russia']
         def pairs = []
         names.each { k, v -> pairs.add(new Pair<>(new Team(k), new Team(v))) }
-        return new ProhibitedTeams(pairs)
+        return new ProhibitedTeams(pairs.toSet())
     }
 
     def setUpWinter() {

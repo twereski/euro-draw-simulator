@@ -5,13 +5,13 @@ import com.example.draw.domain.Team;
 import com.example.draw.domain.group.Group;
 import javafx.util.Pair;
 
-import java.util.List;
+import java.util.Set;
 
 public class ProhibitedTeams implements Restriction {
 
-    private final List<Pair<Team, Team>> pairs;
+    private final Set<Pair<Team, Team>> pairs;
 
-    public ProhibitedTeams(List<Pair<Team, Team>> pairs) {
+    public ProhibitedTeams(Set<Pair<Team, Team>> pairs) {
         this.pairs = pairs;
     }
 

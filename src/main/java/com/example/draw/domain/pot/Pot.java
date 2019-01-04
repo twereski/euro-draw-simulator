@@ -2,7 +2,6 @@ package com.example.draw.domain.pot;
 
 import com.example.draw.domain.DomainException;
 import com.example.draw.domain.Team;
-import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -30,7 +29,7 @@ public class Pot {
         return teams.remove(random.nextInt(teams.size()));
     }
 
-    public ImmutableList<Team> teams() {
-        return ImmutableList.copyOf(teams);
+    public boolean isEmpty() {
+        return teams.isEmpty();
     }
 }

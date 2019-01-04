@@ -3,10 +3,7 @@ package com.example.draw.infrastracture;
 import com.example.draw.domain.pot.Pot;
 import com.example.draw.domain.pot.PotRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryPotRepository implements PotRepository {
@@ -19,7 +16,7 @@ public class InMemoryPotRepository implements PotRepository {
     }
 
     @Override
-    public void saveAll(List<Pot> pots) {
+    public void saveAll(Collection<Pot> pots) {
         pots.forEach(p -> map.put(p.getId(), p));
     }
 
@@ -29,7 +26,7 @@ public class InMemoryPotRepository implements PotRepository {
 
     @Override
     public Optional<Pot> getFirstNotEmpty() {
-        return map.entrySet().stream().filter(e -> !e.getValue().teams().isEmpty()).map(Map.Entry::getValue).findFirst();
+        return map.entrySet().stream().filter(e -> !e.getValue().isEmpty()).map(Map.Entry::getValue).findFirst();
     }
 
     public Pot get(int id) {

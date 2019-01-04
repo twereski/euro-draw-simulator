@@ -26,26 +26,11 @@ public class GroupFacade {
     }
 
     public void addTeam(Team team) {
-        Group group = groups.defaultGroup();
-        int attempt = 0;
-        while (!tryAddTeamToGroup(team, group)) {
-            if (attempt > groups.size()) {
-                throw new DomainException("Cannot add team to any group");
-            }
-            group = groups.getNext(group);
-            attempt++;
-        }
-    }
-
-    private boolean tryAddTeamToGroup(Team team, Group group) {
-        if (!group.hasFreePlaces()) {
-            return false;
-        }
-        if (restrictions.stream().noneMatch(r -> r.isProhibited(group, team))) {
-            group.addTeam(team);
-            repository.save(group);
-            return true;
-        }
-        return false;
+        Group group = groups.groupStream()
+                .filter(Group.hasFreePlace().and(Group.restrictionsDoNotBlock(team, restrictions)))
+                .findFirst()
+                .orElseThrow(() -> new DomainException("Cannot add team to any group - " + team.getName()));
+        group.addTeam(team);
+        repository.save(group);
     }
 }

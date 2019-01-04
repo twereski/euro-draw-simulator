@@ -8,6 +8,7 @@ import com.example.draw.domain.pot.Pot;
 import com.example.draw.domain.pot.PotsFacade;
 
 import java.util.List;
+import java.util.Set;
 
 public class SimulationFacade {
 
@@ -23,7 +24,7 @@ public class SimulationFacade {
         groupFacade.setRestrictions(restrictions);
     }
 
-    public void prepareSimulation(List<Pot> pots, List<Group> groups) {
+    public void prepareSimulation(Set<Pot> pots, List<Group> groups) {
         potsFacade.setUpPots(pots);
         groupFacade.setUpGroups(groups);
     }
