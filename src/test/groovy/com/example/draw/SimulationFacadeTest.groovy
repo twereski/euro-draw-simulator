@@ -5,7 +5,6 @@ import com.example.draw.domain.group.Group
 import com.example.draw.domain.group.restrictions.*
 import com.example.draw.domain.pot.Pot
 import com.example.draw.infrastracture.ConfigurationInMemory
-import javafx.util.Pair
 import spock.lang.Specification
 
 import java.util.stream.Collectors
@@ -102,7 +101,7 @@ class SimulationFacadeTest extends Specification {
         def names = ['Armenia': 'Azerbaijan', 'Gibraltar': 'Spain', 'Kosovo': 'Bosnia-Herzegovina',
                      'Serbia' : 'Kosovo', 'Ukraine': 'Russia']
         def pairs = []
-        names.each { k, v -> pairs.add(new Pair<>(new Team(k), new Team(v))) }
+        names.each { k, v -> pairs.add(new TeamPair(new Team(k), new Team(v))) }
         return new ProhibitedTeams(pairs.toSet())
     }
 

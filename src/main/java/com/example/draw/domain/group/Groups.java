@@ -9,7 +9,6 @@ class Groups {
 
     public Groups(List<Group> groups) {
         this.groups = groups;
-        sort();
     }
 
     Stream<Group> groupStream() {
