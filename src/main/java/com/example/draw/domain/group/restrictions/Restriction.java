@@ -6,6 +6,7 @@ import com.example.draw.domain.group.Group;
 import java.util.ArrayList;
 import java.util.List;
 
+@FunctionalInterface
 public interface Restriction {
     boolean isProhibited(Group group, Team team);
 
